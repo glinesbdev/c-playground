@@ -1,5 +1,5 @@
-CC ::= gcc
-CFLAGS ::= -Wall -g -Isrc
+CC := gcc
+CFLAGS := -Wall -Wextra --std=c99 -Isrc
 SRC_DIR := src
 SRC := $(wildcard $(SRC_DIR)/*.c)
 EXE := bin/reverse

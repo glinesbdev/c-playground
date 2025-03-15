@@ -1,5 +1,4 @@
 #include "strings.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int strlength(const char *str) {
@@ -18,15 +17,14 @@ void revstr(char *str) {
   if (!str)
     return;
 
-  char *left = str;
   char *right = str + strlength(str) - 1;
   char tmp;
 
-  while (right - left >= 1) {
-    tmp = *left;
-    *left = *right;
+  while (right - str >= 1) {
+    tmp = *str;
+    *str = *right;
     *right = tmp;
-    left++;
+    str++;
     right--;
   }
 }
@@ -75,15 +73,17 @@ int str_ends_with(const char *str, const char *end) {
   int strlen = strlength(str);
   int endlen = strlength(end);
 
-  if (!strlen || !endlen || strlen < endlen)
+  if (!(strlen || endlen) || strlen < endlen)
     return 0;
 
-  int startpos = endlen - strlen;
+  int startpos = strlen - endlen;
   int result = 0;
 
   int i, j;
-  for (i = startpos, j = 0; i < strlen; i++, j++)
-    result = (int)(str[i] == end[j]);
+  for (i = startpos, j = 0; i < strlen; i++, j++) {
+    if ((result = (int)(str[i] == end[j])) == 1)
+      break;
+  }
 
   return result;
 }
@@ -93,13 +93,12 @@ int char_index(const char *str, const char target) {
     return -1;
 
   int index = 0;
-  const char *start = str;
 
-  while (*start != target) {
-    start++;
+  while (*str != target) {
+    str++;
     index++;
 
-    if (*start == '\0') {
+    if (*str == '\0') {
       return -1;
     }
   }
@@ -111,21 +110,18 @@ int streql(const char *str, const char *query) {
   int strlen = strlength(str);
   int qlen = strlength(query);
 
-  if (strlen == 0 || qlen == 0 || strlen != qlen)
+  if (!(strlen || qlen) || strlen != qlen)
     return 0;
-
-  const char *s = str;
-  const char *q = query;
 
   int result = 0;
 
-  while (*s != '\0') {
-    if (!(result = (int)(*s == *q)))
+  do {
+    if (!(result = (int)(*str == *query)))
       break;
 
-    s++;
-    q++;
-  }
+    str++;
+    query++;
+  } while (*str != '\0');
 
   return result;
 }
@@ -134,14 +130,13 @@ int str_index(const char *str, const char *target) {
   int strlen = strlength(str);
   int tlen = strlength(target);
 
-  if (strlen < tlen)
+  if (!(strlen || tlen) || strlen < tlen)
     return -1;
 
-  const char *s = str;
   int index;
 
-  while (*s != '\0') {
-    index = char_index(s, *target);
+  while (*str != '\0') {
+    index = char_index(str, *target);
 
     if (index == -1)
       return -1;
@@ -150,11 +145,10 @@ int str_index(const char *str, const char *target) {
     int res = streql(sub, target);
     free(sub);
 
-    if (!res) {
-      s++;
-    } else {
+    if (!res)
+      str++;
+    else
       return index;
-    }
   }
 
   return -1;
