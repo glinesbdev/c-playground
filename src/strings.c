@@ -199,12 +199,7 @@ char *str_trim(const char *str) {
       break;
   }
 
-  char *result = str_slice(str, start, strlen - end);
-
-  if (!result)
-    return NULL;
-
-  return result;
+  return str_slice(str, start, strlen - end);
 }
 
 char *str_trim_start(const char *str) {
@@ -219,12 +214,7 @@ char *str_trim_start(const char *str) {
     start++;
   }
 
-  char *result = str_slice(str, start, -1);
-
-  if (!result)
-    return NULL;
-
-  return result;
+  return str_slice(str, start, -1);
 }
 
 char *str_trim_end(const char *str) {
@@ -240,12 +230,7 @@ char *str_trim_end(const char *str) {
     end++;
   }
 
-  char *result = str_slice(str, 0, strlen - end);
-
-  if (!result)
-    return NULL;
-
-  return result;
+  return str_slice(str, 0, strlen - end);
 }
 
 void str_lower(char *str) {
