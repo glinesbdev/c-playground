@@ -43,5 +43,5 @@ $(RELEASE_EXE): $(SRC) $(DEPS)
 $(TEST_EXE): $(TEST_SRC)
 	$(CC) $(DEBUG) -I$(TEST_INCLUDES) $^ -o $@
 
-.PHONY: all test test_run clean
+.PHONY: all release tests run_tests clean
 
