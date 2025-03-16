@@ -70,6 +70,23 @@ char *str_slice(const char *str, int start, int end) {
   return slice;
 }
 
+int str_starts_with(const char *str, const char *starts) {
+  int strlen = strlength(str);
+  int startlen = strlength(starts);
+
+  if (!(strlen || startlen) || strlen < startlen)
+    return 0;
+
+  int result = 0;
+
+  for (int i = 0; i < strlen; i++) {
+    if ((result = (int)(str[i] == starts[i])) == 1)
+      return result;
+  }
+
+  return result;
+}
+
 int str_ends_with(const char *str, const char *end) {
   int strlen = strlength(str);
   int endlen = strlength(end);

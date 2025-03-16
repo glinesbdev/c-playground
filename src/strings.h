@@ -5,6 +5,7 @@ int strlength(const char *str);
 void revstr(char *str);
 char *revstr_copy(const char *str);
 char *str_slice(const char *str, int start, int end);
+int str_starts_with(const char *str, const char *starts);
 int str_ends_with(const char *str, const char *ends);
 int char_index(const char *str, const char target);
 int streql(const char *str, const char *query);

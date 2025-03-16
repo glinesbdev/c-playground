@@ -57,9 +57,22 @@ void string_str_slice_test(void) {
   free(sub3);
 }
 
+void string_starts_with_test(void) {
+  TEST_ASSERT_EQUAL_INT(str_starts_with("Ice Cream", "Ice"), 1);
+  TEST_ASSERT_EQUAL_INT(str_starts_with("Superman", "man"), 0);
+  TEST_ASSERT_EQUAL_INT(str_starts_with("Superman", "Ssssuperman"), 0);
+  TEST_ASSERT_EQUAL_INT(str_starts_with(NULL, NULL), 0);
+  TEST_ASSERT_EQUAL_INT(str_starts_with("Something", NULL), 0);
+  TEST_ASSERT_EQUAL_INT(str_starts_with(NULL, "Something"), 0);
+}
+
 void string_ends_with_test(void) {
   TEST_ASSERT_EQUAL_INT(str_ends_with("Ice Cream", "ream"), 1);
   TEST_ASSERT_EQUAL_INT(str_ends_with("Superman", "uper"), 0);
+  TEST_ASSERT_EQUAL_INT(str_ends_with("Superman", "Ssssuperman"), 0);
+  TEST_ASSERT_EQUAL_INT(str_ends_with(NULL, NULL), 0);
+  TEST_ASSERT_EQUAL_INT(str_ends_with("Something", NULL), 0);
+  TEST_ASSERT_EQUAL_INT(str_ends_with(NULL, "Something"), 0);
 }
 
 void string_char_index_test(void) {
