@@ -80,7 +80,7 @@ int str_starts_with(const char *str, const char *starts) {
   int result = 0;
 
   for (int i = 0; i < strlen; i++) {
-    if ((result = (int)(str[i] == starts[i])) == 1)
+    if ((result = (str[i] == starts[i])) == 1)
       return result;
   }
 
@@ -98,7 +98,7 @@ int str_ends_with(const char *str, const char *end) {
   int result = 0;
 
   for (int i = startpos, j = 0; i < strlen; i++, j++) {
-    if ((result = (int)(str[i] == end[j])) == 1)
+    if ((result = (str[i] == end[j])) == 1)
       return result;
   }
 
