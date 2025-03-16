@@ -15,7 +15,7 @@ TEST_DIR := tests
 TEST_INCLUDES := unity/src
 TEST_SRC := $(wildcard $(TEST_DIR)/*.c)
 TEST_SRC += $(wildcard $(TEST_INCLUDES)/*.c)
-TEST_SRC += $(SRC_DIR)/strings.c
+TEST_SRC += $(filter-out $(SRC_DIR)/main.c, $(SRC))
 TEST_EXE := $(TEST_DIR)/bin/tests
 
 all: $(EXE)

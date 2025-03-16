@@ -129,6 +129,28 @@ void string_str_trim_end_test(void) {
   free(trimmed2);
 }
 
+void string_str_lower_test(void) {
+  char str[] = "THIS SHOULD BE LOWER CASE!";
+  str_lower(str);
+
+  char str2[] = "This should ALSO be LoWeR casE!";
+  str_lower(str2);
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str, "this should be lower case!", 27);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str2, "this should also be lower case!", 32);
+}
+
+void string_str_upper_test(void) {
+  char str[] = "this should be upper case!";
+  str_upper(str);
+
+  char str2[] = "THIS should ALSO be uPpEr Case!";
+  str_upper(str2);
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str, "THIS SHOULD BE UPPER CASE!", 27);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str2, "THIS SHOULD ALSO BE UPPER CASE!", 32);
+}
+
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(string_reverse_test);
@@ -142,5 +164,7 @@ int main(void) {
   RUN_TEST(string_str_trim_test);
   RUN_TEST(string_str_trim_start_test);
   RUN_TEST(string_str_trim_end_test);
+  RUN_TEST(string_str_lower_test);
+  RUN_TEST(string_str_upper_test);
   return UNITY_END();
 }

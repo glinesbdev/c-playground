@@ -12,5 +12,7 @@ int str_index(const char *str, const char *query);
 char *str_trim(const char *str);
 char *str_trim_start(const char *str);
 char *str_trim_end(const char *str);
+void str_lower(char *str);
+void str_upper(char *str);
 
 #endif

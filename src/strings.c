@@ -231,3 +231,25 @@ char *str_trim_end(const char *str) {
 
   return result;
 }
+
+void str_lower(char *str) {
+  if (!str)
+    return;
+
+  for (char *p = str; *p != '\0'; p++) {
+    if (*p >= 'A' && *p <= 'Z') {
+      *p += 32;
+    }
+  }
+}
+
+void str_upper(char *str) {
+  if (!str)
+    return;
+
+  for (char *p = str; *p != '\0'; p++) {
+    if (*p >= 'a' && *p <= 'z') {
+      *p -= 32;
+    }
+  }
+}
