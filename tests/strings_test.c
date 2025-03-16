@@ -21,7 +21,7 @@ void string_reverse_copy_test(void) {
   char *reversed = revstr_copy(str);
 
   TEST_ASSERT_EQUAL_CHAR_ARRAY(reversed, "gnihtemos rehtona", 18);
-  TEST_ASSERT_EQUAL_CHAR_ARRAY(str, "another something", 9);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str, "another something", 18);
   TEST_ASSERT_NULL(revstr_copy(NULL));
 
   free(reversed);
@@ -82,6 +82,53 @@ void string_equal_test(void) {
   TEST_ASSERT_EQUAL_INT(streql(NULL, "water"), 0);
 }
 
+void string_str_trim_test(void) {
+  char str[] = "   Hello, there  ";
+  char *trimmed = str_trim(str);
+
+  char str2[] = "Space in back    ";
+  char *trimmed2 = str_trim(str2);
+
+  char str3[] = "     Space in front";
+  char *trimmed3 = str_trim(str3);
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed, "Hello, there", 13);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed2, "Space in back", 14);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed3, "Space in front", 15);
+
+  free(trimmed);
+  free(trimmed2);
+  free(trimmed3);
+}
+
+void string_str_trim_start_test(void) {
+  char str[] = "   Hello, there";
+  char *trimmed = str_trim_start(str);
+
+  char str2[] = "Space in back    ";
+  char *trimmed2 = str_trim_start(str2);
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed, "Hello, there", 13);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed2, "Space in back    ", 14);
+
+  free(trimmed);
+  free(trimmed2);
+}
+
+void string_str_trim_end_test(void) {
+  char str[] = "Hello, there   ";
+  char *trimmed = str_trim_end(str);
+
+  char str2[] = "    Space in front";
+  char *trimmed2 = str_trim_end(str2);
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed, "Hello, there", 13);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(trimmed2, "    Space in front", 19);
+
+  free(trimmed);
+  free(trimmed2);
+}
+
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(string_reverse_test);
@@ -92,5 +139,8 @@ int main(void) {
   RUN_TEST(string_char_index_test);
   RUN_TEST(string_index_test);
   RUN_TEST(string_equal_test);
+  RUN_TEST(string_str_trim_test);
+  RUN_TEST(string_str_trim_start_test);
+  RUN_TEST(string_str_trim_end_test);
   return UNITY_END();
 }

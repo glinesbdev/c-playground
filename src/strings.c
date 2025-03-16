@@ -1,5 +1,4 @@
 #include "strings.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int strlength(const char *str) {
@@ -158,4 +157,77 @@ int str_index(const char *str, const char *target) {
   }
 
   return -1;
+}
+
+char *str_trim(const char *str) {
+  if (!str)
+    return NULL;
+
+  int strlen = strlength(str);
+  const char *left = str;
+  const char *right = str + strlen - 1;
+  int start = 0, end = 0;
+
+  while (1) {
+    if (*left == ' ') {
+      left++;
+      start++;
+    }
+
+    if (*right == ' ') {
+      right--;
+      end++;
+    }
+
+    if (*right != ' ' && *left != ' ')
+      break;
+  }
+
+  char *result = str_slice(str, start, strlen - end);
+
+  if (!result)
+    return NULL;
+
+  return result;
+}
+
+char *str_trim_start(const char *str) {
+  if (!str)
+    return NULL;
+
+  const char *left = str;
+  int start = 0;
+
+  while (*left == ' ') {
+    left++;
+    start++;
+  }
+
+  char *result = str_slice(str, start, -1);
+
+  if (!result)
+    return NULL;
+
+  return result;
+}
+
+char *str_trim_end(const char *str) {
+  if (!str)
+    return NULL;
+
+  int strlen = strlength(str);
+  const char *right = str + strlen - 1;
+  int end = 0;
+
+  while (*right == ' ') {
+    right--;
+    end++;
+  }
+
+  char *result = str_slice(str, 0, strlen - end);
+
+  if (!result)
+    return NULL;
+
+  return result;
 }

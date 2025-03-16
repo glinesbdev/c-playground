@@ -9,5 +9,8 @@ int str_ends_with(const char *str, const char *ends);
 int char_index(const char *str, const char target);
 int streql(const char *str, const char *query);
 int str_index(const char *str, const char *query);
+char *str_trim(const char *str);
+char *str_trim_start(const char *str);
+char *str_trim_end(const char *str);
 
 #endif
