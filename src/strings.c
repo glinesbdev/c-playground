@@ -1,4 +1,5 @@
 #include "strings.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 int strlength(const char *str) {
@@ -47,26 +48,27 @@ char *revstr_copy(const char *str) {
   return result;
 }
 
-char *substr(const char *str, int start, int end) {
-  int len = strlength(str);
+char *str_slice(const char *str, int start, int end) {
+  int strlen = strlength(str);
 
-  if (!len || len < end || start < 0 || (end > -1 && start > end))
+  if (!strlen || strlen < end || start < 0 || (end > -1 && start > end))
     return NULL;
   else if (end == -1)
-    end = len;
+    end = strlen;
 
-  char *result = malloc(sizeof(char) * (end - start) + 1);
+  int slice_len = end - start;
+  char *slice = malloc(sizeof(char) * (slice_len + 1));
 
-  if (!result)
+  if (!slice)
     return NULL;
 
   int i, j;
-  for (i = start, j = 0; i <= end; i++, j++)
-    result[j] = str[i];
+  for (i = start, j = 0; j < slice_len; i++, j++)
+    slice[j] = str[i];
 
-  result[++j] = '\0';
+  slice[slice_len] = '\0';
 
-  return result;
+  return slice;
 }
 
 int str_ends_with(const char *str, const char *end) {
@@ -82,7 +84,7 @@ int str_ends_with(const char *str, const char *end) {
   int i, j;
   for (i = startpos, j = 0; i < strlen; i++, j++) {
     if ((result = (int)(str[i] == end[j])) == 1)
-      break;
+      return result;
   }
 
   return result;
@@ -96,11 +98,12 @@ int char_index(const char *str, const char target) {
 
   while (*str != target) {
     str++;
-    index++;
 
     if (*str == '\0') {
       return -1;
     }
+
+    index++;
   }
 
   return index;
@@ -117,7 +120,7 @@ int streql(const char *str, const char *query) {
 
   do {
     if (!(result = (int)(*str == *query)))
-      break;
+      return 0;
 
     str++;
     query++;
@@ -133,7 +136,7 @@ int str_index(const char *str, const char *target) {
   if (!(strlen || tlen) || strlen < tlen)
     return -1;
 
-  int index;
+  int index, offset = 0;
 
   while (*str != '\0') {
     index = char_index(str, *target);
@@ -141,14 +144,17 @@ int str_index(const char *str, const char *target) {
     if (index == -1)
       return -1;
 
-    char *sub = substr(str, index, tlen);
-    int res = streql(sub, target);
-    free(sub);
+    char *slice = str_slice(str, index, tlen);
+    int equal = streql(slice, target);
+    int slice_len = strlength(slice) - 1;
+    free(slice);
 
-    if (!res)
-      str++;
-    else
-      return index;
+    if (!equal) {
+      offset += slice_len;
+      str += slice_len;
+    } else {
+      return index + offset;
+    }
   }
 
   return -1;
