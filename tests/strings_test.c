@@ -164,6 +164,35 @@ void string_str_upper_test(void) {
   TEST_ASSERT_EQUAL_CHAR_ARRAY(str2, "THIS SHOULD ALSO BE UPPER CASE!", 32);
 }
 
+void string_str_append_test(void) {
+  char *str = str_append("One day, a boy went", " out to eat at a restaurant");
+  char *str2 = str_append("This is all she wrote", NULL);
+  char *str3 = str_append(NULL, "kinda magic, right?");
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(
+      str, "One day, a boy went out to eat at a restaurant", 47);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str2, "This is all she wrote", 22);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str3, "kinda magic, right?", 20);
+
+  free(str);
+  free(str2);
+  free(str3);
+}
+
+void string_str_prepend_test(void) {
+  char *str = str_prepend(" and this is in back", "This is in front");
+  char *str2 = str_prepend("This is all she wrote", NULL);
+  char *str3 = str_prepend(NULL, "kinda magic, right?");
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str, "This is in front and this is in back", 37);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str2, "This is all she wrote", 22);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(str3, "kinda magic, right?", 20);
+
+  free(str);
+  free(str2);
+  free(str3);
+}
+
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(string_reverse_test);
@@ -179,5 +208,7 @@ int main(void) {
   RUN_TEST(string_str_trim_end_test);
   RUN_TEST(string_str_lower_test);
   RUN_TEST(string_str_upper_test);
+  RUN_TEST(string_str_append_test);
+  RUN_TEST(string_str_prepend_test);
   return UNITY_END();
 }

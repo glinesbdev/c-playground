@@ -1,4 +1,5 @@
 #include "strings.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 int strlength(const char *str) {
@@ -269,4 +270,48 @@ void str_upper(char *str) {
       *p -= 32;
     }
   }
+}
+
+char *str_append(const char *str, const char *new) {
+  int strlen = strlength(str);
+  int newlen = strlength(new);
+  int size = strlen + newlen;
+  char *result = malloc(sizeof(char) * (size + 1));
+
+  if (!result)
+    return NULL;
+
+  int i;
+
+  for (i = 0; i < strlen; i++)
+    result[i] = str[i];
+
+  for (int j = 0; i < size && j < newlen; i++, j++)
+    result[i] = new[j];
+
+  result[size] = '\0';
+
+  return result;
+}
+
+char *str_prepend(const char *str, const char *new) {
+  int strlen = strlength(str);
+  int newlen = strlength(new);
+  int size = strlen + newlen;
+  char *result = malloc(sizeof(char) * (size + 1));
+
+  if (!result)
+    return NULL;
+
+  int i;
+
+  for (i = 0; i < newlen; i++)
+    result[i] = new[i];
+
+  for (int j = 0; i < size && j < strlen; i++, j++)
+    result[i] = str[j];
+
+  result[size] = '\0';
+
+  return result;
 }

@@ -14,3 +14,26 @@ git clone --recurse-submodules
 ```
 
 To run the tests, you can run the `make run_tests` command to build and run the test suite.
+
+## Memory Checks
+
+```bash
+# ./memcheck.txt
+
+==66837== Memcheck, a memory error detector
+==66837== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==66837== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==66837== Command: ./tests/bin/tests
+==66837== Parent PID: 61748
+==66837== 
+==66837== 
+==66837== HEAP SUMMARY:
+==66837==     in use at exit: 0 bytes in 0 blocks
+==66837==   total heap usage: 24 allocs, 24 frees, 1,449 bytes allocated
+==66837== 
+==66837== All heap blocks were freed -- no leaks are possible
+==66837== 
+==66837== For lists of detected and suppressed errors, rerun with: -s
+==66837== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+```
