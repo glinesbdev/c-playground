@@ -62,8 +62,7 @@ char *str_slice(const char *str, int start, int end) {
   if (!slice)
     return NULL;
 
-  int i, j;
-  for (i = start, j = 0; j < slice_len; i++, j++)
+  for (int i = start, j = 0; j < slice_len; i++, j++)
     slice[j] = str[i];
 
   slice[slice_len] = '\0';
@@ -98,8 +97,7 @@ int str_ends_with(const char *str, const char *end) {
   int startpos = strlen - endlen;
   int result = 0;
 
-  int i, j;
-  for (i = startpos, j = 0; i < strlen; i++, j++) {
+  for (int i = startpos, j = 0; i < strlen; i++, j++) {
     if ((result = (int)(str[i] == end[j])) == 1)
       return result;
   }
