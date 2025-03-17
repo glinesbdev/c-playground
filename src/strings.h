@@ -17,5 +17,7 @@ void str_lower(char *str);
 void str_upper(char *str);
 char *str_append(const char *str, const char *new);
 char *str_prepend(const char *str, const char *new);
+char *str_pad_start(const char *str, int amount, const char *padding);
+char *str_pad_end(const char *str, int amount, const char *padding);
 
 #endif

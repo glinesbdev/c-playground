@@ -193,6 +193,30 @@ void string_str_prepend_test(void) {
   free(str3);
 }
 
+void string_str_pad_start(void) {
+  char *padded = str_pad_start("123", 8, "xyz");
+  char *padded2 = str_pad_start("1234567890", 15, "*");
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(padded, "xyzxy123", 8);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(padded2, "*****1234567890", 15);
+  TEST_ASSERT_NULL(str_pad_end("123", 1, "0"));
+
+  free(padded);
+  free(padded2);
+}
+
+void string_str_pad_end(void) {
+  char *padded = str_pad_end("123", 8, "xyz");
+  char *padded2 = str_pad_end("1234567890", 15, "*");
+
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(padded, "123xyzxy", 8);
+  TEST_ASSERT_EQUAL_CHAR_ARRAY(padded2, "1234567890*****", 15);
+  TEST_ASSERT_NULL(str_pad_end("123", 1, "0"));
+
+  free(padded);
+  free(padded2);
+}
+
 int main(void) {
   UNITY_BEGIN();
   RUN_TEST(string_reverse_test);
@@ -210,5 +234,7 @@ int main(void) {
   RUN_TEST(string_str_upper_test);
   RUN_TEST(string_str_append_test);
   RUN_TEST(string_str_prepend_test);
+  RUN_TEST(string_str_pad_start);
+  RUN_TEST(string_str_pad_end);
   return UNITY_END();
 }
